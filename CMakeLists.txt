@@ -13,6 +13,8 @@ endif()
 ADD_SUBDIRECTORY(example)
 ADD_SUBDIRECTORY(test)
 
+ADD_EXECUTABLE(simhash ./include/simhash/main.cpp)
+
 ENABLE_TESTING()
 ADD_TEST(NAME ./test/test.run COMMAND ./test/test.run)
 ADD_TEST(NAME ./test/load_test COMMAND ./test/load_test)
