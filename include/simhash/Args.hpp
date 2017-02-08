@@ -14,6 +14,9 @@ namespace simhash {
 			std::string idfPath;
 			std::string stopWords;
 			int wordsTopN;
+			int inputMode;
+			std::string input;
+
 
 			Args(){
 				dictPath = "../../dict/jieba.dict.utf8";
@@ -21,6 +24,9 @@ namespace simhash {
 				idfPath = "../../dict/idf.utf8";
 				stopWords = "../../dict/stop_words.utf8";
 				wordsTopN = 5;
+				inputMode = 0;	// 0 表示待转换为simhash的是一个句子
+								// 1 表示从文件中读取输入，每行需要转换为一个simhash值
+				input = "";
 			}
 
 			void printUsage() {
@@ -32,6 +38,8 @@ namespace simhash {
 					<< "  -i	idf path\n"
 					<< "  -s	stopwords path\n"
 					<< "  -w	top n keywords\n"
+					<< "  -mode input mode (0 or 1, default 0), 0 for string, 1 for file\n"
+					<< "  -in   input string or input file path\n"
 					<< std::endl;
 			}
 
@@ -52,6 +60,10 @@ namespace simhash {
 						stopWords = std::string(argv[ai + 1]);
 					} else if (strcmp(argv[ai], "-w") == 0) {
 						wordsTopN = atoi(argv[ai + 1]);
+					} else if (strcmp(argv[ai], "-mode") == 0) {
+						inputMode = atoi(argv[ai + 1]);
+					} else if (strcmp(argv[ai], "-in") == 0) {
+						input = std::string(argv[ai + 1]);
 					} else {
 						std::cout << "Unknown argument: " << argv[ai] << std::endl;
 						printUsage();
